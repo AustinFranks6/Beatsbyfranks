@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import { CartContext } from "../components/cart/context";
 
 const Styles = styled.div`
   header {
@@ -28,6 +31,8 @@ const Styles = styled.div`
     padding: 0px 10px;
     text-decoration: none;
     font-family: "Alegreya SC", serif;
+    font-style: italic;
+
     color: #999;
   }
 
@@ -47,22 +52,37 @@ const Styles = styled.div`
       padding: 0px 5px;
     }
   }
+
+  .link:hover {
+    color: skyblue;
+
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+  }
 `;
 
-function Navigation() {
+export default function Navigation() {
+  //Displays number of items in cart
+  const cartCtx = useContext(CartContext);
+  const numItems = cartCtx.items.length;
   return (
     <Styles>
       <header>
         <h1>BEATSBYFRANKS</h1>
         <nav>
-          <a href="#">Home</a>
-          <a href="#">Cart</a>
-          <a href="#">Contact</a>
+          <Link className="link" to="/">
+            Home
+          </Link>
+          <Link className="link" to="/cart">
+            Cart({numItems})
+          </Link>
+          <Link className="link" to="/contact">
+            Contact
+          </Link>
+
           <div className="animation start-home"></div>
         </nav>
       </header>
     </Styles>
   );
 }
-
-export default Navigation;
